@@ -2,6 +2,8 @@ import * as R from "ramda";
 import hh from "hyperscript-helpers";
 import { h } from "virtual-dom";
 
+import { setBillAmount, setTipPercentage } from "./Update";
+
 const { div, h1, pre, form, label, input } = hh(h);
 
 const formView = (dispatch, model) => {
@@ -16,7 +18,8 @@ const formView = (dispatch, model) => {
         input({
           className: "pa2 input-reset ba w100 mb2",
           type: "text",
-          value: 0
+          value: model.billAmount,
+          oninput: e => dispatch(setBillAmount(e.target.value))
         })
       ]),
       div([
@@ -24,7 +27,8 @@ const formView = (dispatch, model) => {
         input({
           className: "pa2 input-reset ba w100 mb2",
           type: "text",
-          value: 0
+          value: model.tipPercentage,
+          oninput: e => dispatch(setTipPercentage(e.target.value))
         })
       ]),
       div([label({ className: "db m1" }, `Tip: $${0}`)]),
