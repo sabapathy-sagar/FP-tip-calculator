@@ -28,19 +28,26 @@ const update = (msg, model) => {
   switch (msg.type) {
     case MSGS.SET_BILL_AMOUNT:
       const billAmount = toInt(msg.billAmount);
+      const calculatedTip = calculateTip(billAmount, model.tipPercentage);
       return {
         ...model,
-        billAmount
+        billAmount,
+        tip: calculatedTip
       };
     case MSGS.SET_TIP_PERCENTAGE:
       const tipPercentage = toInt(msg.tipPercentage);
+      const tip = calculateTip(model.billAmount, tipPercentage);
       return {
         ...model,
-        tipPercentage
+        tipPercentage,
+        tip
       };
     default:
       return model;
   }
 };
+
+const calculateTip = (billAmount, tipPercentage) =>
+  billAmount * (tipPercentage / 100);
 
 export default update;
