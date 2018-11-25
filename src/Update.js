@@ -19,16 +19,21 @@ export const setTipPercentage = tipPercentage => {
   };
 };
 
+const toInt = R.pipe(
+  parseInt,
+  R.defaultTo(0)
+);
+
 const update = (msg, model) => {
   switch (msg.type) {
     case MSGS.SET_BILL_AMOUNT:
-      const { billAmount } = msg;
+      const billAmount = toInt(msg.billAmount);
       return {
         ...model,
         billAmount
       };
     case MSGS.SET_TIP_PERCENTAGE:
-      const { tipPercentage } = msg;
+      const tipPercentage = toInt(msg.tipPercentage);
       return {
         ...model,
         tipPercentage
